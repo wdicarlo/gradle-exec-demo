@@ -1,0 +1,12 @@
+
+
+addListener(new BobListener())
+
+class BobListener extends BuildAdapter {
+    public void projectsEvaluated(Gradle gradle) {
+	println "000"
+    }
+}
+
+
+

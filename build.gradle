@@ -1,0 +1,48 @@
+
+apply from: 'first.gradle'
+
+println "build.gradle"
+
+defaultTasks 'bob'
+
+println '0 - println'
+
+
+beforeEvaluate {
+	println 'Before Evaluate'
+}
+
+afterEvaluate {
+	println '6 - afterEvaluate'
+}
+
+gradle.taskGraph.whenReady {
+	println "7 - gradle.taskGraph.whenReady"
+}
+
+gradle.taskGraph.beforeTask { 
+	println "8 - gradle.taskGraph.beforeTask"
+}
+gradle.taskGraph.afterTask { 
+	println "15 - gradle.taskGraph.afterTask"
+}
+
+gradle.beforeProject {
+	println "X - gradle.beforeProject"
+}
+
+gradle.afterProject { 
+	println "5 - gradle.afterProject"
+}
+ 
+task bob << { println '11 - task bob <<' }
+bob.doLast() { println '12 - bob.doLast()' }
+bob { println '1 - bob { println }' }
+bob { configure { println '2 - bob { configure { println }}' } }
+bob { doLast { println '13 - bob { doLast { println }}' } }
+bob.doFirst { println '10 - bob.doFirst { println }' }
+bob { println '3' ; doLast { println '14' } ; doFirst { println '9' } }
+bob.configure { println '4 - bob.configure { println }' }
+
+
+apply from: 'last.gradle'
